@@ -19,116 +19,6 @@ var intervalID;
 
 
 
-// function startScreen() {
-//     $("#question").hide()
-//     $("#option1").hide()
-//     $("#option2").hide()
-//     $("#option3").hide()
-//     clearInterval();
-//     $("button").on("click", renderQuestion() );
-// }
-// // renderQuestion()
-// document.onload(startScreen());
-// //show start button, hide text
-//     //begins timer when pressed
-//     //display first question on click event 
-//     //timed
-//     //question in one div
-//     //each answer put in their own div
-    
-
-
-// function gameTimer() {
-//     clearInterval(intervalID);
-//     questionTimer = 10;
-//     intervalID = setInterval(function() {
-//         questionTimer--
-//         $("#timer").text("Time Remaining: " + questionTimer);
-//     },1000)
-    
-// }
-
-// function stopTimer() {
-//     clearInterval(intervalID);
-// }
-
-// function resultTimer() {
-
-// }
-
-// //function to loop through questions
-// function renderQuestion() {
-//     gameTimer();
-//     $("#pic").empty();
-//     $("button").hide();
-//     //if more questions then go to the next question
-//     if(questionIndex <= (questions.length - 1)) {
-//         $("#question").show().text(questions[questionIndex].q);
-//         $("#option1").show().text(questions[questionIndex].o1);
-//         $("#option2").show().text(questions[questionIndex].o2);
-//         $("#option3").show().text(questions[questionIndex].o3);
-//     } else{
-//         //else go to finish screen
-//         stopTimer();
-//         $("#timer").empty();
-//         $("#question").text("Game Over");
-//         $("#option1").text("Correct Answers: " + correctAns);
-//         $("#option2").text("Incorrect Answers: " + wrongAns);
-//         $("#option3").text("Unanswered: " + unanswered);
-//     }
-// }
-// // renderQuestion();
-    
-// //function to show right or wrong message
-// function rightGuess(){
-//     $("#question").text("Correct!");
-//     $("#pic").html("<img src=" + questions[questionIndex].pic + "/>");
-//     renderQuestion();
-// }
-
-// function wrongGuess(){
-
-// }
-//     //call renderquestion inside of function
-
-
-// $(".answer").on("click", function(){
-//     // event.preventDefault()
-//     //get input from user guess
-//     //listen for click 
-//     var userAnswer = $($(this)).attr("datavalue");
-//     if (questionTimer > 0) {
-
-//         if(userAnswer === questions[questionIndex].a) {
-//             correctAns++
-//             questionIndex++
-//             renderQuestion(); //this will be the right answer function
-            
-            
-//         } else {
-//             wrongAns++
-//             questionIndex++
-//             renderQuestion(); //this will be the wrong answer function
-            
-            
-//         }
-//     } else if (questionTimer === 0) {
-//         console.log("out of time");
-//     }
-// });
-
-
-
-//display if guess is right or wrong - for a set time
-//move to next question
-//start timer over
-//when finished, show total scores
-//reset counters and timer and questions
-
-
-
-
-
 function runTimer() {
     questionTimer = 10;
     clearInterval(intervalID);
@@ -141,7 +31,6 @@ function gameClock() {
     $("#timer").text("Time Remaining: " + questionTimer);
     if(questionTimer === 0) {
         unanswered++
-        // questionIndex++
         timeUpText() //this will be times up text
     }
 }

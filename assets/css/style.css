@@ -3,3 +3,12 @@ body {
 }
 
 /* add hover effect on answers */
+
+img {
+    width: 350px;
+}
+
+.answer:hover {
+    color: red;
+    cursor: pointer;
+}
