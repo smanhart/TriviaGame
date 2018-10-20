@@ -101,7 +101,7 @@ var intervalID;
 //         if(userAnswer === questions[questionIndex].a) {
 //             correctAns++
 //             questionIndex++
-//             rightGuess(); //this will be the right answer function
+//             renderQuestion(); //this will be the right answer function
             
             
 //         } else {
@@ -129,7 +129,7 @@ var intervalID;
 
 
 function runTimer() {
-    // questionTimer = 10;
+    questionTimer = 10;
     clearInterval(intervalID);
     intervalID = setInterval(gameClock, 1000)
     $("button").hide();
@@ -138,9 +138,11 @@ function runTimer() {
 function gameClock() {
     questionTimer--
     $("#timer").text("Time Remaining: " + questionTimer);
-    // if(questionTimer === 0) {
-
-    // }
+    if(questionTimer === 0) {
+        unanswered++
+        questionIndex++
+        renderQuestion()
+    }
 }
 
 
@@ -167,8 +169,23 @@ function renderQuestion() {
     }
     }
 
+    function evalAnswer() {
+        var userAnswer = $($(this)).attr("datavalue");
+        if(userAnswer === questions[questionIndex].a) {
+            correctAns++
+            questionIndex++
+            renderQuestion(); //this will be the right answer function     
+        } else if(userAnswer !== questions[questionIndex].a){
+            wrongAns++
+            questionIndex++
+            renderQuestion(); //this will be the wrong answer function   
+        }
+    }
+
     // function correctText() {
 
     // }
 
 $("button").on("click", renderQuestion);
+
+$(".answer").on("click", evalAnswer);
