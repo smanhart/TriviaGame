@@ -1,10 +1,10 @@
 //var array to hold questions
 var questions = [
-    {q:"What was the first food eaten in space?", o1:"Applesauce", o2:"Cheetos",o3:"Banana", a:"o1", result:"Applesauce", pic:"../image/Applesauce.jpg"},
-    {q:"In ancient Egypt, what food was given as wages to workers?", o1:"Bread", o2:"Radishes", o3:"Milk", a:"o2"},
-    {q:"What percentage of the over 3000 varieties of pears are produced in the US?", o1:"84%", o2:"30%", o3:"5%", a:"o1"},
-    {q:"Which food has successfully been turned into a diamond?", o1:"Chocolate", o2:"Ground Beef", o3:"Peanut Butter", a:"o3"},
-    {q:"What food is stolen most often?", o1:"Potatoes", o2:"Cheese", o3:"Apples", a:"o2"}
+    {q:"What was the first food eaten in space?", o1:"Applesauce", o2:"Cheetos",o3:"Banana", a:"o1", correct:"Applesauce", pic:"image/Applesauce.jpg"},
+    {q:"In ancient Egypt, what food was given as wages to workers?", o1:"Bread", o2:"Radishes", o3:"Milk", a:"o2", correct:"Radishes"},
+    {q:"What percentage of the over 3000 varieties of pears are produced in the US?", o1:"84%", o2:"30%", o3:"5%", a:"o1", correct:"84%"},
+    {q:"Which food has successfully been turned into a diamond?", o1:"Chocolate", o2:"Ground Beef", o3:"Peanut Butter", a:"o3", correct:"Peanut Butter"},
+    {q:"What food is stolen most often?", o1:"Potatoes", o2:"Cheese", o3:"Apples", a:"o2", correct:"Cheese"}
 ]
     //each question object w/ array of answers?
 var correctAns = 0;
@@ -12,6 +12,7 @@ var wrongAns = 0;
 var unanswered = 0;
 var questionIndex = 0;
 var questionTimer = 10;
+var answerTimer = 5;
 var resultTimer
 var intervalID;
 
@@ -140,9 +141,22 @@ function gameClock() {
     $("#timer").text("Time Remaining: " + questionTimer);
     if(questionTimer === 0) {
         unanswered++
-        questionIndex++
-        renderQuestion()
+        // questionIndex++
+        timeUpText() //this will be times up text
     }
+}
+
+function answerClock() {
+    answerTimer--
+    if(answerTimer === 0) {
+        renderQuestion();
+    }
+}
+
+function runAnswer() {
+    answerTimer = 5
+    clearInterval(intervalID);
+    intervalID = setInterval(answerClock, 1000);
 }
 
 
@@ -152,11 +166,13 @@ function stopTimer() {
 
 function renderQuestion() {
     runTimer();
+    $("#pic").hide()
+    $(".answer").show()
     if(questionIndex <= (questions.length - 1)) {
-        $("#question").show().text(questions[questionIndex].q);
-        $("#option1").show().text(questions[questionIndex].o1);
-        $("#option2").show().text(questions[questionIndex].o2);
-        $("#option3").show().text(questions[questionIndex].o3);
+        $("#question").text(questions[questionIndex].q);
+        $("#option1").text(questions[questionIndex].o1);
+        $("#option2").text(questions[questionIndex].o2);
+        $("#option3").text(questions[questionIndex].o3);
     } else{
         //else go to finish screen
         stopTimer();
@@ -167,24 +183,44 @@ function renderQuestion() {
         $("#option3").text("Unanswered: " + unanswered);
         
     }
+}
+
+function evalAnswer() {
+    var userAnswer = $($(this)).attr("datavalue");
+    if(userAnswer === questions[questionIndex].a) {
+        correctAns++
+        questionIndex++
+        correctText(); //this will be the right answer function     
+    } else if(userAnswer !== questions[questionIndex].a){
+        wrongAns++
+        wrongText(); //this will be the wrong answer function   
     }
+}
 
-    function evalAnswer() {
-        var userAnswer = $($(this)).attr("datavalue");
-        if(userAnswer === questions[questionIndex].a) {
-            correctAns++
-            questionIndex++
-            renderQuestion(); //this will be the right answer function     
-        } else if(userAnswer !== questions[questionIndex].a){
-            wrongAns++
-            questionIndex++
-            renderQuestion(); //this will be the wrong answer function   
-        }
-    }
+function correctText() {
+    runAnswer();
+    $("#question").text("Correct!");
+    $(".answer").hide()
+    // $("#pic").show().html("<img src=" + questions[questionIndex].pic + "/>");
+}
 
-    // function correctText() {
+function wrongText() {
+    runAnswer();
+    $("#question").text("Incorrect");
+    $("#option1").text("The correct answer is: " + questions[questionIndex].correct)
+    $(".extra").hide()
+    // $("#pic").show().html("<img src=" + questions[questionIndex].pic + "/>");
+    questionIndex++
+}
 
-    // }
+function timeUpText() {
+    runAnswer();
+    $("#question").text("Time's Up!");
+    $("#option1").text("The correct answer is: " + questions[questionIndex].correct)
+    $(".extra").hide()
+    // $("#pic").show().html("<img src=" + questions[questionIndex].pic + "/>");
+    questionIndex++
+}
 
 $("button").on("click", renderQuestion);
 
