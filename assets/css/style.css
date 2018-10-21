@@ -1,14 +1,56 @@
 body {
-    background-color: darkolivegreen;
+    background-image: url(../image/restaurant_icons.png);
+    
 }
 
-/* add hover effect on answers */
-
-img {
+/* img {
     width: 350px;
-}
+} */
 
 .answer:hover {
     color: red;
     cursor: pointer;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.card-body, .card-img-bottom {
+    background: #cccacb;
+}
+
+/* .card-img-bottom{
+    padding: 100px;
+} */
+
+.title {
+    text-align: center;
+    font-size: 5em;
+    font-family: 'Lakki Reddy', cursive;
+}
+
+.text {
+    text-align: center;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.btn {
+    width: 200px;
+    background-color: rgb(88, 57, 124);
+    align-items: center;
+    border: 2px solid black;
+}
+
+.btn:hover {
+    background-color: rgb(139, 96, 189);
+    border: 2px solid black;
+}
+
+
+img {
+    display: block;
+    margin: 0 auto 30px auto;
+    /* margin-right: auto; */
+    width: 350px;
 }

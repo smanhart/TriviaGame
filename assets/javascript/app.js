@@ -28,7 +28,7 @@ function runTimer() {
 
 function gameClock() {
     questionTimer--
-    $("#timer").text("Time Remaining: " + questionTimer);
+    $("#timer").text("Time Remaining: " + questionTimer + " seconds left");
     if(questionTimer === 0) {
         unanswered++
         timeUpText() //this will be times up text
@@ -70,6 +70,8 @@ function renderQuestion() {
         $("#option1").text("Correct Answers: " + correctAns);
         $("#option2").text("Incorrect Answers: " + wrongAns);
         $("#option3").text("Unanswered: " + unanswered);
+        questionIndex = 0;
+        reset();
         
     }
 }
@@ -109,6 +111,10 @@ function timeUpText() {
     $(".extra").hide()
     $("#pic").show().html("<img src='" + questions[questionIndex].pic + "'/>");
     questionIndex++
+}
+
+function reset() {
+    $("button").show();
 }
 
 $("button").on("click", renderQuestion);
