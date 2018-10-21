@@ -1,3 +1,9 @@
+.clearfix::after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
 body {
     background-image: url(../image/restaurant_icons.png);
     
@@ -20,9 +26,6 @@ body {
     background: #cccacb;
 }
 
-/* .card-img-bottom{
-    padding: 100px;
-} */
 
 .title {
     text-align: center;
